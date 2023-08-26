@@ -1,4 +1,4 @@
-package com.example.lovecalculator
+package com.example.lovecalculator.ui
 
 import android.os.Bundle
 import android.util.Log
@@ -8,14 +8,19 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
+import com.example.lovecalculator.Presenter
+import com.example.lovecalculator.model.LoveModel
 import com.example.lovecalculator.databinding.FragmentMainBinding
+import com.example.lovecalculator.model.RetrofitService
+import com.example.lovecalculator.view.LoveView
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class MainFragment : Fragment() {
+class MainFragment : Fragment(), LoveView {
 
     private lateinit var binding: FragmentMainBinding
+    private var presenter = Presenter(this)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,21 +37,19 @@ class MainFragment : Fragment() {
 
     private fun initListener() = with(binding) {
         btnCalculate.setOnClickListener {
-            RetrofitService().api.calculateMatching(
-                etFirst.text.toString(),
-                etSecond.text.toString()
-            ).enqueue(object : Callback<LoveModel> {
-                override fun onResponse(call: Call<LoveModel>, response: Response<LoveModel>) {
-                    Log.e("ololo", "onResponse: ${response.body()}")
-                    findNavController().navigate(MainFragmentDirections.actionMainFragmentToSecondFragment(
-                        response.body()!!
-                    ))
-                }
-
-                override fun onFailure(call: Call<LoveModel>, t: Throwable) {
-                    Toast.makeText(requireContext(), t.message, Toast.LENGTH_SHORT).show()
-                }
-            })
+            presenter.getLoveResult(etFirst.text.toString(), etSecond.text.toString())
         }
+    }
+
+    override fun navigationToResult(loveModel: LoveModel) {
+        findNavController().navigate(
+            MainFragmentDirections.actionMainFragmentToSecondFragment(
+                loveModel
+            )
+        )
+    }
+
+    override fun showError(message: String) {
+        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
 }
