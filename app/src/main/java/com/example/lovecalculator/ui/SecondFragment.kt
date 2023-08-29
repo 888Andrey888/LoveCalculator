@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
+import com.example.lovecalculator.R
 import com.example.lovecalculator.ResultPresenter
 import com.example.lovecalculator.databinding.FragmentSecondBinding
 import com.example.lovecalculator.model.LoveModel
@@ -14,7 +16,6 @@ class SecondFragment : Fragment(), ResultView {
 
     private lateinit var binding: FragmentSecondBinding
     private val presenter = ResultPresenter(this)
-    //private lateinit var navArgs: SecondFragmentArgs
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,6 +28,13 @@ class SecondFragment : Fragment(), ResultView {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView()
+        initListener()
+    }
+
+    private fun initListener() {
+        binding.btnHistory.setOnClickListener {
+            findNavController().navigate(R.id.historyFragment)
+        }
     }
 
     private fun initView() {

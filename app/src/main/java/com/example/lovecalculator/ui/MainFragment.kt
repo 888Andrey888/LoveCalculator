@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
+import com.example.lovecalculator.App
 import com.example.lovecalculator.Presenter
 import com.example.lovecalculator.model.LoveModel
 import com.example.lovecalculator.databinding.FragmentMainBinding

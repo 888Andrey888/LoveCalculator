@@ -23,6 +23,14 @@
         <argument
             android:name="loveModel"
             app:argType="com.example.lovecalculator.model.LoveModel" />
+        <action
+            android:id="@+id/action_secondFragment_to_historyFragment"
+            app:destination="@id/historyFragment" />
 
     </fragment>
+    <fragment
+        android:id="@+id/historyFragment"
+        android:name="com.example.lovecalculator.ui.history.HistoryFragment"
+        android:label="fragment_history"
+        tools:layout="@layout/fragment_history" />
 </navigation>
