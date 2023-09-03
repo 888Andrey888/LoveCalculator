@@ -1,17 +1,27 @@
 package com.example.lovecalculator
 
-import android.util.Log
+import com.example.lovecalculator.model.LoveApi
 import com.example.lovecalculator.model.LoveModel
-import com.example.lovecalculator.model.RetrofitService
+import com.example.lovecalculator.model.Pref
+import com.example.lovecalculator.model.room.LoveDao
 import com.example.lovecalculator.view.LoveView
+import dagger.hilt.android.AndroidEntryPoint
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.util.Date
+import javax.inject.Inject
 
-class Presenter(val loveView: LoveView) {
+//@AndroidEntryPoint
+class Presenter @Inject constructor(private val api: LoveApi) {
 
-    private var api = RetrofitService().api
+    private lateinit var loveView: LoveView
+
+    @Inject
+    lateinit var loveDao: LoveDao
+
+    @Inject
+    lateinit var pref: Pref
 
     fun getLoveResult(firstName: String, secondName: String) {
         api.calculateMatching(
@@ -22,8 +32,7 @@ class Presenter(val loveView: LoveView) {
                 response.body()?.let {
                     val loveModel = it
                     loveModel.time = Date().time
-                    Log.d("ololo", "onResponse: ${loveModel.time}")
-                    App.appDatabase.loveDao().insert(loveModel)
+                    loveDao.insert(loveModel)
                     loveView.navigationToResult(loveModel)
                 }
             }
@@ -32,5 +41,14 @@ class Presenter(val loveView: LoveView) {
                 loveView.showError(t.message.toString())
             }
         })
+    }
+
+    fun showOnBoarding(){
+        if (!pref.isOnBoardingShowed())
+            loveView.navigationToOnBoarding()
+    }
+
+    fun attachView(view: LoveView){
+        loveView = view
     }
 }

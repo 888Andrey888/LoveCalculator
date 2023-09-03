@@ -2,21 +2,28 @@ package com.example.lovecalculator
 
 import android.util.Log
 import com.example.lovecalculator.model.LoveModel
+import com.example.lovecalculator.model.room.LoveDao
 import com.example.lovecalculator.view.HistoryView
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
-class HistoryPresenter(private val historyView: HistoryView) {
+class HistoryPresenter @Inject constructor(private val loveDao: LoveDao) {
 
+    private lateinit var historyView: HistoryView
     fun getHistoryList() {
-        historyView.initRecyclerView(App.appDatabase.loveDao().getAll())
+        historyView.initRecyclerView(loveDao.getAll())
     }
 
     fun deleteItem(loveModel: LoveModel) {
-        App.appDatabase.loveDao().delete(loveModel)
+        loveDao.delete(loveModel)
         getHistoryList()
     }
 
     fun getDate(loveModel: LoveModel) {
-        Log.d("ololo", "getDate: ${loveModel.time}")
         loveModel.time?.let { historyView.showDateDialog(it) }
+    }
+
+    fun attachView(view: HistoryView){
+        historyView = view
     }
 }

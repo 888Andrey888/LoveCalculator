@@ -3,17 +3,12 @@ package com.example.lovecalculator
 import android.app.Application
 import androidx.room.Room
 import com.example.lovecalculator.model.room.AppDatabase
+import dagger.hilt.android.HiltAndroidApp
 
+@HiltAndroidApp
 class App : Application() {
-
-    companion object{
-        lateinit var appDatabase: AppDatabase
-    }
-
-    override fun onCreate() {
-        super.onCreate()
-        appDatabase =
-            Room.databaseBuilder(applicationContext, AppDatabase::class.java, "love-calc")
-                .allowMainThreadQueries().build()
+    companion object {
+        const val PREF_NAME = "pref.name"
+        const val SHOWED_KEY = "seen.key"
     }
 }

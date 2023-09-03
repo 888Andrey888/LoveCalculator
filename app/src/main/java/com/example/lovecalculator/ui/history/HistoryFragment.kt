@@ -12,12 +12,16 @@ import com.example.lovecalculator.R
 import com.example.lovecalculator.databinding.FragmentHistoryBinding
 import com.example.lovecalculator.model.LoveModel
 import com.example.lovecalculator.view.HistoryView
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class HistoryFragment : Fragment(), HistoryView {
 
     private lateinit var binding: FragmentHistoryBinding
     private val adapter = HistoryAdapter(this::onClickItem, this::onLongClickItem)
-    private val historyPresenter = HistoryPresenter(this)
+    @Inject
+    lateinit var historyPresenter: HistoryPresenter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,6 +33,7 @@ class HistoryFragment : Fragment(), HistoryView {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        historyPresenter.attachView(this)
         historyPresenter.getHistoryList()
     }
 

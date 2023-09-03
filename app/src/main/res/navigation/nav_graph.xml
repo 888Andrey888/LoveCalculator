@@ -33,4 +33,9 @@
         android:name="com.example.lovecalculator.ui.history.HistoryFragment"
         android:label="fragment_history"
         tools:layout="@layout/fragment_history" />
+    <fragment
+        android:id="@+id/onBoardingFragment"
+        android:name="com.example.lovecalculator.ui.onboarding.OnBoardingFragment"
+        android:label="fragment_on_boarding"
+        tools:layout="@layout/fragment_on_boarding" />
 </navigation>
