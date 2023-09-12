@@ -3,6 +3,7 @@ package com.example.lovecalculator.ui.history
 import android.app.AlertDialog
 import android.icu.text.SimpleDateFormat
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -62,9 +63,10 @@ class HistoryFragment : Fragment(), HistoryView {
     override fun showDateDialog(time: Long) {
         val alertDialog = AlertDialog.Builder(requireContext())
 
+        Log.d("ololo", "showDateDialog: $time")
+
         alertDialog.setTitle(getString(R.string.date_of_creation))
             .setMessage(SimpleDateFormat("d MMM yyyy HH:mm:ss").format(time))
             .setNegativeButton(getString(R.string.close)) { _, _ -> }.show()
-
     }
 }

@@ -1,7 +1,7 @@
 package com.example.lovecalculator.model
 
-data class OnBoarding(
+data class OnBoardingModel(
     val title: String? = null,
     val desc: String? = null,
-    val image: String? = null
+    val lottie: Int
 )

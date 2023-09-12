@@ -5,34 +5,36 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import com.example.lovecalculator.R
 import com.example.lovecalculator.databinding.ItemOnboardingBinding
 import com.example.lovecalculator.loadImage
-import com.example.lovecalculator.model.OnBoarding
+import com.example.lovecalculator.model.OnBoardingModel
 
 class OnBoardingAdapter(private val onClick: () -> Unit): Adapter<OnBoardingAdapter.OnBoardingViewHolder>() {
 
     private val data = arrayListOf(
-        OnBoarding(
+        OnBoardingModel(
             "Love is",
             "celebrate spring together.",
-            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNI-SmMCG7Op4cLfqdof5MfA72b95aHqhb9Q&usqp=CAU"
+            R.raw.animation_lmgdsbop
         ),
-        OnBoarding(
+        OnBoardingModel(
             "Love is",
             "when you don't ask the price of her new dress.",
-            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRoApOIqfr2Lr51c5uQfPE063js0Oqou0pWnKl4ae0_JI_xIKyRn8oKbm8zacv17fGi3_M&usqp=CAU"
-        ),
-        OnBoarding(
+            R.raw.animation_lmgdtfrc
+            ),
+        OnBoardingModel(
             "Love is",
             "when his picture is on your table, and your love lives in his heart.",
-            "https://flytothesky.ru/wp-content/uploads/2021/02/1-75.jpg"
+            R.raw.animation_lmgdtx62
         ),
-        OnBoarding(
+        OnBoardingModel(
             "Love is",
             "rush home, knowing that your loved one is waiting for you there.",
-            "https://memepedia.ru/wp-content/uploads/2018/02/%D0%BB%D0%B0%D0%B2-%D0%B8%D0%B7.jpg"
+            R.raw.animation_lmgdu1hr
         )
     )
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OnBoardingViewHolder {
         return OnBoardingViewHolder(
@@ -51,10 +53,10 @@ class OnBoardingAdapter(private val onClick: () -> Unit): Adapter<OnBoardingAdap
     }
 
     inner class OnBoardingViewHolder(private val binding: ItemOnboardingBinding): ViewHolder(binding.root){
-        fun bind(onBoarding: OnBoarding) = with(binding){
-            tvTitle.text = onBoarding.title
-            tvDesc.text = onBoarding.desc
-            onBoarding.image?.let { imgBoard.loadImage(it) }
+        fun bind(onBoardingModel: OnBoardingModel) = with(binding){
+            tvTitle.text = onBoardingModel.title
+            tvDesc.text = onBoardingModel.desc
+            animationView.setAnimation(onBoardingModel.lottie)
             btnStart.isVisible = adapterPosition == data.lastIndex
             tvSkip.isVisible = adapterPosition != data.lastIndex
             btnStart.setOnClickListener {

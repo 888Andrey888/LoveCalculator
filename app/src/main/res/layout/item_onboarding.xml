@@ -14,14 +14,23 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
-    <ImageView
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/animationView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:lottie_url="REPLACE_JSON_URL"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:layout_constraintTop_toBottomOf="@+id/tv_skip"/>
+
+    <!--<ImageView
         android:id="@+id/img_board"
         android:layout_width="match_parent"
         android:layout_height="512dp"
         android:layout_margin="@dimen/default_margin"
         android:src="@mipmap/ic_launcher"
         android:scaleType="centerCrop"
-        app:layout_constraintTop_toBottomOf="@+id/tv_skip"/>
+        app:layout_constraintTop_toBottomOf="@+id/tv_skip"/>-->
 
     <TextView
         android:id="@+id/tv_title"
@@ -34,7 +43,7 @@
         android:textSize="@dimen/default_text_size"
         app:layout_constraintEnd_toEndOf="@+id/img_board"
         app:layout_constraintStart_toStartOf="@+id/img_board"
-        app:layout_constraintTop_toBottomOf="@+id/img_board" />
+        app:layout_constraintTop_toBottomOf="@+id/animationView" />
 
     <TextView
         android:id="@+id/tv_desc"

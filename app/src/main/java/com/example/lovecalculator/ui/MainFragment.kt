@@ -11,6 +11,7 @@ import com.example.lovecalculator.Presenter
 import com.example.lovecalculator.R
 import com.example.lovecalculator.model.LoveModel
 import com.example.lovecalculator.databinding.FragmentMainBinding
+import com.example.lovecalculator.model.Pref
 import com.example.lovecalculator.view.LoveView
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
